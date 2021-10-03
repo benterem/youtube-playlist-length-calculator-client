@@ -39,29 +39,7 @@ const URLForm = ({ title, url, handleSubmit, onChange }) => {
   )
 }
 
-const Result = ({ playlistData, url }) => {
 
-  if(Object.entries(playlistData).length){
-    return <></>
-  }
-
-  return (
-    <div className='result-container'>
-      <p>
-        There are {playlistData.numberOfVideos} videos
-      </p>
-      <p>
-        Total playlist length: {playlistData.hours} hours, {playlistData.minutes} minutes, {playlistData.seconds} seconds
-      </p>
-      <p>
-        Approximately {playlistData.approx}
-      </p>
-      <p>
-        Go to the playlist: {url}
-      </p>
-    </div>
-  )
-}
 
 const App = () => {
 
