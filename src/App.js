@@ -20,17 +20,39 @@ const Description = () => {
   )
 }
 
+const URLForm = ({ title, url, handleSubmit, onChange }) => {
 
+  return (
+    <div className='url-form'>
+      <form onSubmit={handleSubmit}>
+        <label>{title}</label>
+        <input 
+          type='text'
+          required
+          value={url}
+          onChange={onChange}
+        />
+        <button type='submit'>Calculate</button>
+      </form>
+    </div>
+  )
+}
 
 const App = () => {
 
- 
+  const [url, setURL ] = useState('') 
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    console.log('hey there')
+  }
 
 
   return (
     <>
       <Header />
       <Description />
+      <URLForm title={'url'} url={url} handleSubmit={handleSubmit} onChange={(e) => setURL(e.target.value)}/>
     </>
   )
 }
