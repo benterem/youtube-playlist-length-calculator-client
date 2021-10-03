@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './App.css';
+import Result from './components/Result';
 
 const Header = () => {
   return (
@@ -56,6 +57,7 @@ const App = () => {
       <Header />
       <Description />
       <URLForm title={'url'} url={url} handleSubmit={handleSubmit} onChange={(e) => setURL(e.target.value)}/>
+      <Result url={url} playlistData={{totalTime: 26084}}/>
     </>
   )
 }

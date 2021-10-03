@@ -2,33 +2,37 @@ import { useState } from "react"
 
 const Result = ({ playlistData, url }) => {
 
+  console.log(playlistData, url)
+
   const [timeInSeconds, setTimeInSconds] = useState(playlistData.totalTime)
   const [timeToDisplay, setTimeToDisplay] = useState(0)
+  const [formattedLength, setFormatedLength] = useState({})
 
   const formatLength = (timeInSeconds) => {
     const hours = Math.floor(timeInSeconds / 3600)
     const minutes = Math.floor((timeInSeconds % 3600) / 60)
     const seconds = Math.floor(timeInSeconds % 3600) % 60
-    return {hours, minutes, seconds}
+    const approxInMinutes = Math.floor(timeInSeconds / 60)
+    return {hours, minutes, seconds, approxInMinutes}
   }
 
   const handleSelect = (speed) => {
     setTimeToDisplay(timeInSeconds / speed)
-    formatLength(timeToDisplay)
-    console.log(timeToDisplay, timeToDisplay)
+    setFormatedLength(formatLength(timeToDisplay))
   }
 
-  if(Object.entries(playlistData).length){
-    return <></>
-  }
+  // if(Object.entries(playlistData).length){
+  //   return <></>
+  // }
 
   return (
     <div className='result-container'>
 
       <select
-        value={temp}
+        value={timeInSeconds}
         onChange={(e) => handleSelect(e.target.value)}
         >
+        <option value={1.0}>Pick playback speed</option>
         <option value={1.0}>1.0</option>
         <option value={1.25}>1.25</option>
         <option value={1.5}>1.5</option>
@@ -37,13 +41,10 @@ const Result = ({ playlistData, url }) => {
       </select>
 
       <p>
-        There are {playlistData.numberOfVideos} videos
+        Total playlist length: {formattedLength.hours} hours, {formattedLength.minutes} minutes, {formattedLength.seconds} seconds
       </p>
       <p>
-        Total playlist length: {playlistData.hours} hours, {playlistData.minutes} minutes, {playlistData.seconds} seconds
-      </p>
-      <p>
-        Approximately {playlistData.approx}
+        Approximately {formattedLength.approxInMinutes} minutes
       </p>
       <p>
         Go to the playlist: {url}
