@@ -1,22 +1,15 @@
 import { useState } from "react"
+import './Result.css'
 
 const Result = ({ playlistData, url, formatLength }) => {
 
   console.log(playlistData, url)
 
   const [timeInSeconds, _ ] = useState(playlistData.totalTime)
-  const [formattedLength, setFormatedLength] = useState(playlistData.formattedLength)
-
-  // const formatLength = (timeInSeconds) => {
-  //   const hours = Math.floor(timeInSeconds / 3600)
-  //   const minutes = Math.floor((timeInSeconds % 3600) / 60)
-  //   const seconds = Math.floor(timeInSeconds % 3600) % 60
-  //   const approxInMinutes = Math.floor(timeInSeconds / 60)
-  //   return {hours, minutes, seconds, approxInMinutes}
-  // }
+  const [formattedLength, setFormattedLength] = useState(playlistData.formattedLength)
 
   const handleSelect = (speed) => {
-    setFormatedLength(formatLength(timeInSeconds / speed))
+    setFormattedLength(formatLength(timeInSeconds / speed))
   }
 
 
@@ -38,10 +31,10 @@ const Result = ({ playlistData, url, formatLength }) => {
       </select>
 
       <p>
-        Total playlist length: {hours} hours, {minutes} minutes, {seconds} seconds
+        <strong>Total playlist length:</strong> {formattedLength.hours} hours, {formattedLength.minutes} minutes, {formattedLength.seconds} seconds
       </p>
       <p>
-        Approximately {approxInMinutes} minutes
+        Approximately {formattedLength.approxInMinutes} minutes
       </p>
 
     </div>
