@@ -4,8 +4,7 @@ const Result = ({ playlistData, url, formatLength }) => {
 
   console.log(playlistData, url)
 
-  const [timeInSeconds, setTimeInSconds] = useState(playlistData.totalTime)
-  const [timeToDisplay, setTimeToDisplay] = useState(playlistData.totalTime)
+  const [timeInSeconds, _ ] = useState(playlistData.totalTime)
   const [formattedLength, setFormatedLength] = useState(playlistData.formattedLength)
 
   // const formatLength = (timeInSeconds) => {
@@ -17,20 +16,18 @@ const Result = ({ playlistData, url, formatLength }) => {
   // }
 
   const handleSelect = (speed) => {
-    setTimeToDisplay(timeInSeconds / speed)
-    setFormatedLength(formatLength(timeToDisplay))
+    setFormatedLength(formatLength(timeInSeconds / speed))
   }
 
-  // if(Object.entries(playlistData).length){
-  //   return <></>
-  // }
 
   return (
     <div className='result-container'>
 
       <select
         value={timeInSeconds}
-        onChange={(e) => handleSelect(e.target.value)}
+        onChange={
+          (e) => handleSelect(e.target.value)
+        }
         >
         <option value={1.0}>Pick playback speed</option>
         <option value={1.0}>1.0</option>
@@ -41,14 +38,12 @@ const Result = ({ playlistData, url, formatLength }) => {
       </select>
 
       <p>
-        Total playlist length: {formattedLength.hours} hours, {formattedLength.minutes} minutes, {formattedLength.seconds} seconds
+        Total playlist length: {hours} hours, {minutes} minutes, {seconds} seconds
       </p>
       <p>
-        Approximately {formattedLength.approxInMinutes} minutes
+        Approximately {approxInMinutes} minutes
       </p>
-      <p>
-        Go to the playlist: {url}
-      </p>
+
     </div>
   )
 }
