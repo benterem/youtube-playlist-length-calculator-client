@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react'
 import './App.css';
-import Result from './components/Result';
+import Result from './components/Result'
+import getPlaylistLength from './services/playlists'
 
 const Header = () => {
   return (
@@ -21,15 +22,15 @@ const Description = () => {
   )
 }
 
-const URLForm = ({ title, url, handleSubmit, onChange }) => {
+const URLForm = ({ url, handleSubmit, onChange }) => {
 
   return (
     <div className='url-form'>
       <form onSubmit={handleSubmit} className='url-form-element'>
-        <label className='form-label'>{title}</label>
         <input 
           type='text'
           required
+          placeholder='Enter your url here'
           value={url}
           onChange={onChange}
           className='url-input'
@@ -45,11 +46,16 @@ const URLForm = ({ title, url, handleSubmit, onChange }) => {
 const App = () => {
 
   const [url, setURL ] = useState('')
-  const [playlistData, setPlaylistData] = useState({}) 
+  const [playlistData, setPlayListData] = useState({})
+
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    console.log('hey there')
+    getPlaylistLength(url)
+    .then(playlistDataFromServer => {
+      setPlayListData(playlistDataFromServer)
+    })
+    .catch(error => console.log('couldn\'t get data'))
   }
 
   const formatLength = (timeInSeconds) => {
@@ -66,8 +72,8 @@ const App = () => {
     <>
       <Header />
       <Description />
-      <URLForm title={'url'} url={url} handleSubmit={handleSubmit} onChange={(e) => setURL(e.target.value)}/>
-      <Result url={url} playlistData={{totalTime: 26084, formattedLength: formattedLength}} formatLength={formatLength}/>
+      <URLForm url={url} handleSubmit={handleSubmit} onChange={(e) => setURL(e.target.value)}/>
+      <Result url={url} playlistData={playlistData} formatLength={formatLength}/>
     </>
   )
 }
