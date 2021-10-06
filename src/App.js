@@ -52,12 +52,22 @@ const App = () => {
     console.log('hey there')
   }
 
+  const formatLength = (timeInSeconds) => {
+    const hours = Math.floor(timeInSeconds / 3600)
+    const minutes = Math.floor((timeInSeconds % 3600) / 60)
+    const seconds = Math.floor(timeInSeconds % 3600) % 60
+    const approxInMinutes = Math.floor(timeInSeconds / 60)
+    return {hours, minutes, seconds, approxInMinutes}
+  }
+
+  const formattedLength = formatLength(26084)
+
   return (
     <>
       <Header />
       <Description />
       <URLForm title={'url'} url={url} handleSubmit={handleSubmit} onChange={(e) => setURL(e.target.value)}/>
-      <Result url={url} playlistData={{totalTime: 26084}}/>
+      <Result url={url} playlistData={{totalTime: 26084, formattedLength: formattedLength}} formatLength={formatLength}/>
     </>
   )
 }

@@ -1,20 +1,20 @@
 import { useState } from "react"
 
-const Result = ({ playlistData, url }) => {
+const Result = ({ playlistData, url, formatLength }) => {
 
   console.log(playlistData, url)
 
   const [timeInSeconds, setTimeInSconds] = useState(playlistData.totalTime)
-  const [timeToDisplay, setTimeToDisplay] = useState(0)
-  const [formattedLength, setFormatedLength] = useState({})
+  const [timeToDisplay, setTimeToDisplay] = useState(playlistData.totalTime)
+  const [formattedLength, setFormatedLength] = useState(playlistData.formattedLength)
 
-  const formatLength = (timeInSeconds) => {
-    const hours = Math.floor(timeInSeconds / 3600)
-    const minutes = Math.floor((timeInSeconds % 3600) / 60)
-    const seconds = Math.floor(timeInSeconds % 3600) % 60
-    const approxInMinutes = Math.floor(timeInSeconds / 60)
-    return {hours, minutes, seconds, approxInMinutes}
-  }
+  // const formatLength = (timeInSeconds) => {
+  //   const hours = Math.floor(timeInSeconds / 3600)
+  //   const minutes = Math.floor((timeInSeconds % 3600) / 60)
+  //   const seconds = Math.floor(timeInSeconds % 3600) % 60
+  //   const approxInMinutes = Math.floor(timeInSeconds / 60)
+  //   return {hours, minutes, seconds, approxInMinutes}
+  // }
 
   const handleSelect = (speed) => {
     setTimeToDisplay(timeInSeconds / speed)
