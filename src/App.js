@@ -2,14 +2,7 @@ import { useEffect, useState } from 'react'
 import './App.css';
 import Result from './components/Result'
 import getPlaylistLength from './services/playlists'
-
-const Header = () => {
-  return (
-    <div className='page-title-container'>
-      <h1>Youtube Playlist Length Calculator</h1>
-    </div>
-  )
-}
+import Header from './components/Header'
 
 const Description = () => {
   
